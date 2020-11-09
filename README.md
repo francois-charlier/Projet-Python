@@ -12,7 +12,6 @@ Membres du groupe :
 
 -         Charlier François
 
- 
 
 Explication :
 
@@ -21,4 +20,3 @@ Quantik est un jeu de société tel que puissance 4 ou le but d’aligner 4 form
 Nous aimerions le rendre jouable en ligne avec une interface graphique qui ressemble au vrai plateau.
 
 <img src="quantik.jpg" alt="alt text" width="350" height="350">
-![picture](quantik.jpg = 350x350)
