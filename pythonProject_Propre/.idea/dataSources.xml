@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="historique" uuid="9c1d4085-be08-45e2-955b-8f39f59dc1f2">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\charl\PycharmProjects\pythonProject_Propre\QuantikGame\historique.db</jdbc-url>
+    </data-source>
+  </component>
+</project>

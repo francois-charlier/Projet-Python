@@ -1,0 +1,259 @@
+<MenuPrincipale>:
+    name: "principale"
+    canvas.before:
+        Color:
+            rgb: (0.5647058823529412, 0.9333333333333333, 0.5647058823529412, 1.0)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'horizontal'
+        Label:
+            text: ""
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 40
+            Label:
+                text: "Quantik Game"
+                font_size: self.height * 0.35
+                color: (0, 0, 0, 1)
+                valign: "top"
+            Button:
+                background_normal: 'QuantikGame/imgs/menuPrincipal/bouton_play.png'
+                background_down: 'QuantikGame/imgs/menuPrincipal/bouton_play.png'
+                size_hint: 1, 0.45
+                on_release:
+                    app.root.current = "jouer"
+            Button:
+                background_normal: 'QuantikGame/imgs/menuPrincipal/bouton_regles.png'
+                background_down: 'QuantikGame/imgs/menuPrincipal/bouton_regles.png'
+                size_hint: 1, 0.45
+                on_release:
+                    app.root.current = "regles"
+            Button:
+                background_normal: 'QuantikGame/imgs/menuPrincipal/bouton_historique.png'
+                background_down: 'QuantikGame/imgs/menuPrincipal/bouton_historique.png'
+                size_hint: 1, 0.45
+                on_release:
+                    app.root.current = "historique"
+            Button:
+                visible: False
+                opacity: 0
+                disabled: True
+                size_hint: 1, 0.35
+        Label:
+            text: ""
+<MenuJouer>:
+    name: "jouer"
+    canvas.before:
+        Color:
+            rgb: (0.5647058823529412, 0.9333333333333333, 0.5647058823529412, 1.0)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    on_enter: root.demarrerConnection()
+    AnchorLayout:
+        anchor_x: "left"
+        anchor_y: "bottom"
+        padding: 20
+        Button:
+            background_normal: 'QuantikGame/imgs/back.png'
+            background_down: 'QuantikGame/imgs/back.png'
+            size_hint: 0.08, 0.08
+            pos: 15, 15
+            on_release:
+                app.root.current = "principale"
+    FloatLayout:
+        size_hint: 0.25, 1.60
+        Image:
+            size: 100, 100
+            source: "QuantikGame/imgs/jouer/fiche_adversaire.png"
+            keep_ratio: True
+        Label:
+            halign: "center"
+            size_hint: 1, 1.05
+            font_size: self.width * 0.10
+            color: 0, 0, 0, 1
+            text: "\nJean-Claude\n\nWinrate : 56,6%"
+        Label:
+            id: tour
+            pos: 0, -300
+            text: "L'adversaire\njoue"
+            color: 0, 0, 0, 1
+            font_size: 40
+            halign: "center"
+    GridLayout:
+        cols: 3
+        padding: 1.5, 85, 1.5, 85
+        BoxLayout:
+            size_hint: 0.5, 1
+        GridLayout:
+            padding: 10, 10, 10, 10
+            spacing: 10
+            cols: 4
+            rows: 4
+            canvas:
+                Color:
+                    rgba: 180/255, 146/255, 106/255, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Button:
+                id: A1
+                background_normal: "QuantikGame/imgs/jouer/cell.png"
+                background_down: "QuantikGame/imgs/jouer/cell.png"
+                on_release:
+                    #self.background_normal = "QuantikGame/imgs/jouer/rond_rouge.png"
+                    #self.background_down = "QuantikGame/imgs/jouer/rond_rouge.png"
+            Button:
+                id: A2
+                background_normal: "QuantikGame/imgs/cell.png"
+                background_down: "QuantikGame/imgs/cell.png"
+                on_release:
+                    self.background_normal = "QuantikGame/imgs/jouer/rond_bleu.png"
+                    self.background_down = "QuantikGame/imgs/jouer/rond_bleu.png"
+            Button:
+                id: A3
+                background_normal: "QuantikGame/imgs/cell.png"
+                background_down: "QuantikGame/imgs/cell.png"
+                on_release:
+                    self.background_normal = "QuantikGame/imgs/test2.png"
+                    self.background_down = "QuantikGame/imgs/test2.png"
+            Button:
+                id: A4
+                background_normal: "QuantikGame/imgs/jouer/cell.png"
+                background_down: "QuantikGame/imgs/jouer/cell.png"
+            Button:
+                id: B1
+                background_normal: "QuantikGame/imgs/jouer/cell.png"
+                background_down: "QuantikGame/imgs/jouer/cell.png"
+            Button:
+                id: B2
+                background_normal: "QuantikGame/imgs/jouer/cell.png"
+                background_down: "QuantikGame/imgs/jouer/cell.png"
+            Button:
+                id: B3
+                background_normal: "QuantikGame/imgs/jouer/cell.png"
+                background_down: "QuantikGame/imgs/jouer/cell.png"
+            Button:
+                id: B4
+                background_normal: "QuantikGame/imgs/jouer/cell.png"
+                background_down: "QuantikGame/imgs/jouer/cell.png"
+            Button:
+                id: C1
+                background_normal: "QuantikGame/imgs/jouer/cell.png"
+                background_down: "QuantikGame/imgs/jouer/cell.png"
+                text: "b"
+            Button:
+                id: C2
+                background_normal: "QuantikGame/imgs/jouer/cell.png"
+                background_down: "QuantikGame/imgs/jouer/cell.png"
+                text: "b"
+            Button:
+                background_normal: "QuantikGame/imgs/jouer/cell.png"
+                background_down: "QuantikGame/imgs/jouer/cell.png"
+            Button:
+                id: C4
+                background_normal: "QuantikGame/imgs/jouer/cell.png"
+                background_down: "QuantikGame/imgs/jouer/cell.png"
+            Button:
+                id: D1
+                background_normal: "QuantikGame/imgs/jouer/cell.png"
+                background_down: "QuantikGame/imgs/jouer/cell.png"
+            Button:
+                id: D2
+                background_normal: "QuantikGame/imgs/jouer/cell.png"
+                background_down: "QuantikGame/imgs/jouer/cell.png"
+            Button:
+                id: D3
+                background_normal: "QuantikGame/imgs/jouer/cell.png"
+                background_down: "QuantikGame/imgs/jouer/cell.png"
+            Button:
+                id: D4
+                background_normal: "QuantikGame/imgs/jouer/cell.png"
+                background_down: "QuantikGame/imgs/jouer/cell.png"
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: 0.4, 1
+            padding: 25
+            Spinner:
+                id: spinnerPieces
+                width: 200
+                text: "Pièces"
+                font_size: 50
+                size_hint: None, None
+                values: "Carré", "Rond", "Triangle", "Croix"
+                on_text: root.getNbPieces()
+            AnchorLayout:
+                size: self.size
+                anchor_x: "right"
+                anchor_y: "bottom"
+                Label:
+                    id: nbPieces
+                    text: "Nombre : "
+                    color: 0, 0, 0, 1
+                    font_size: 40
+<MenuRegles>:
+    name: "regles"
+    canvas.before:
+        Color:
+            rgb: (0.5647058823529412, 0.9333333333333333, 0.5647058823529412, 1.0)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    Button:
+        background_normal: 'QuantikGame/imgs/back.png'
+        background_down: 'QuantikGame/imgs/back.png'
+        size_hint: 0.08, 0.08
+        pos: 15, 15
+        on_release:
+            app.root.current = "principale"
+    Image:
+        source: "QuantikGame/imgs/regles/regles.png"
+        keep_ratio: True
+
+<MenuHistorique>:
+    name: "historique"
+    canvas.before:
+        Color:
+            rgb: (0.5647058823529412, 0.9333333333333333, 0.5647058823529412, 1.0)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    on_enter: root.getHistorique()
+    on_leave: root.removeHistorique()
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            font_size: self.height * 0.9
+            color: (0, 0, 0, 1)
+            underline: True
+            size_hint: 1, 0.1
+            text: "Historique"
+        ScrollView:
+            do_scroll_x: False
+            bar_pos_y: "right"
+            bar_margin: 185
+            bar_width: 30
+            bar_inactive_color: 0.3, 0.3, 0.3, 1
+            GridLayout:
+                spacing: 15
+                size_hint_y: None
+                height: self.minimum_height * 9
+                cols: 1
+                id: historique
+                size_hint_x: 1
+    AnchorLayout:
+        anchor_x: "left"
+        anchor_y: "bottom"
+        padding: 20
+        Button:
+            background_normal: 'QuantikGame/imgs/back.png'
+            background_down: 'QuantikGame/imgs/back.png'
+            size_hint: 0.08, 0.08
+            on_release: app.root.current = "principale"
+    AnchorLayout:
+        anchor_x: "left"
+        anchor_y: "top"
+        padding: 20
+        id: winrate
