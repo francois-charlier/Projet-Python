@@ -17,10 +17,6 @@ class Plateau():
     def plateau(self):
         return self.__plateau
 
-    @plateau.setter
-    def plateau(self, value):
-        self.__plateau = value
-
 # Permet de tester si il y a une victoire sur une ligne.
 
     def testLigne(self, plateau_param):
@@ -64,11 +60,3 @@ class Plateau():
         if self.testLigne(self.__plateau) or self.testLigne(self.colonneVersLigne()) or self.testLigne(self.zoneVersLigne()):
             print("Victoire, GG à " + joueur)
             return True
-
-    def testEgualite(self):
-        for ligne in self.__plateau:
-            for case in ligne:
-                if len(case) == 2:
-                    return False
-        print("Egalité")
-        return True

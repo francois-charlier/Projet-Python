@@ -12,20 +12,18 @@ class Joueur():
         self.__couleur = ""
 
         self.__pieces = {"carre":2,
-                          "rond":2,
+                          "rond":0,
                       "triangle":2,
-                         "croix":2}
+                         "croix":1}
 
         self.__pseudo = pseudo
+
+        self.__plateau = Plateau()
 
 
     @property
     def pieces(self):
         return self.__pieces
-
-    @pieces.setter
-    def pieces(self, value):
-        self.__pieces = value
 
     @property
     def pseudo(self):
@@ -35,6 +33,6 @@ class Joueur():
     def couleur(self):
         return self.__couleur
 
-    @couleur.setter
-    def couleur(self, value):
-        self.__couleur = value
+    @property
+    def plateau(self):
+        return self.__plateau
