@@ -12,9 +12,9 @@ class Joueur():
         self.__couleur = ""
 
         self.__pieces = {"carre":2,
-                          "rond":0,
+                          "rond":2,
                       "triangle":2,
-                         "croix":1}
+                         "croix":2}
 
         self.__pseudo = pseudo
 
@@ -22,6 +22,10 @@ class Joueur():
     @property
     def pieces(self):
         return self.__pieces
+
+    @pieces.setter
+    def pieces(self, value):
+        self.__pieces = value
 
     @property
     def pseudo(self):

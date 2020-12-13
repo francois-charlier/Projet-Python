@@ -5,10 +5,9 @@
 import random
 from plateau.plateau import Plateau
 from joueur.joueur import Joueur
-from QuantikGame.fenetre import PartieGraphique
-from QuantikGame.fenetre import QuantikGame
+from QuantikGame.partieGraphique import PartieGraphique
+from QuantikGame.partieGraphique import QuantikGame
 from kivy.core.window import Window
-import threading
 
 class PartieConsole():
 
@@ -61,18 +60,18 @@ class PartieConsole():
         if self.__random == 0:
             while True:
                 self.jouerTour(self.__Joueur1.pseudo, self.__Joueur1.pieces)
-                if self.__plateau.testVictoire(self.__Joueur1.pseudo):
+                if self.__plateau.testVictoire(self.__Joueur1.pseudo) or self.__plateau.testEgualite():
                     break;
                 self.jouerTour(self.__Joueur2.pseudo, self.__Joueur2.pieces)
-                if self.__plateau.testVictoire(self.__Joueur2.pseudo):
+                if self.__plateau.testVictoire(self.__Joueur2.pseudo) or self.__plateau.testEgualite():
                     break;
         else:
             while True:
                 self.jouerTour(self.__Joueur2.pseudo, self.__Joueur2.pieces)
-                if self.__plateau.testVictoire(self.__Joueur2.pseudo):
+                if self.__plateau.testVictoire(self.__Joueur2.pseudo) or self.__plateau.testEgualite():
                     break;
                 self.jouerTour(self.__Joueur1.pseudo, self.__Joueur1.pieces)
-                if self.__plateau.testVictoire(self.__Joueur1.pseudo):
+                if self.__plateau.testVictoire(self.__Joueur1.pseudo) or self.__plateau.testEgualite():
                     break;
 
 
