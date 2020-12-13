@@ -14,7 +14,7 @@ class PartieConsole():
 
 # Définition du premier joueur + Utilisation des class Joueur et Plateau
     def __init__(self):
-        self.__ramdom = int(random.uniform(0, 2))
+        self.__random = int(random.uniform(0, 2))
         self.__Joueur1 = ""
         self.__Joueur2 = ""
         self.__plateau = Plateau()
@@ -58,7 +58,7 @@ class PartieConsole():
 # Déroulement d'un partie complete, elle lance les tours de jeu un par un pour que les joueurs jouent chacun à leur tour
     def deroulementPartie(self):
         print("Voici le plateau : \n{}\n{}\n{}\n{}\n".format(self.__plateau.plateau[0], self.__plateau.plateau[1], self.__plateau.plateau[2], self.__plateau.plateau[3]))
-        if self.__ramdom == 0:
+        if self.__random == 0:
             while True:
                 self.jouerTour(self.__Joueur1.pseudo, self.__Joueur1.pieces)
                 if self.__plateau.testVictoire(self.__Joueur1.pseudo):
@@ -95,10 +95,14 @@ class PartieConsole():
             elif interface == "graphique":
                 print("\n" * 25)
                 while True:
-                    joueur = input("Veuillez entrer votre pseudo (maximum 15 caractères):")
-                    if len(joueur) <= 15:
+                    joueur1 = input("Veuillez entrer le pseudo du joueur 1 (maximum 15 caractères):")
+                    if len(joueur1) <= 15:
                         break;
-                PartieGraphique(joueur).start()
+                while True:
+                    joueur2 = input("Veuillez entrer le pseudo du joueur 2 (maximum 15 caractères):")
+                    if len(joueur2) <= 15:
+                        break;
+                PartieGraphique(joueur1, joueur2).start()
                 Window.show()
                 QuantikGame().run()
                 break

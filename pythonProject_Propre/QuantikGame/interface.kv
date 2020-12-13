@@ -51,7 +51,7 @@
         Rectangle:
             pos: self.pos
             size: self.size
-    on_enter: root.demarrerConnection()
+    on_enter: root.commencerPartie()
     AnchorLayout:
         anchor_x: "left"
         anchor_y: "bottom"
@@ -78,7 +78,7 @@
         Label:
             id: tour
             pos: 0, -300
-            text: "L'adversaire\njoue"
+            text: ""
             color: 0, 0, 0, 1
             font_size: 40
             halign: "center"
@@ -220,8 +220,8 @@
         Rectangle:
             pos: self.pos
             size: self.size
-    on_enter: root.getHistorique()
-    on_leave: root.removeHistorique()
+    on_enter: root.creerSelect()
+    on_leave: root.fermerHistorique()
     BoxLayout:
         orientation: "vertical"
         Label:
@@ -257,3 +257,15 @@
         anchor_y: "top"
         padding: 20
         id: winrate
+    AnchorLayout:
+        anchor_x: "right"
+        anchor_y: "top"
+        padding: 25
+        Spinner:
+            id: joueurSelectionne
+            width: 200
+            text: "Joueurs"
+            font_size: 30
+            size_hint: None, None
+            values:
+            on_text: root.getHistorique()

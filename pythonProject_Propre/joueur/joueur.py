@@ -18,8 +18,6 @@ class Joueur():
 
         self.__pseudo = pseudo
 
-        self.__plateau = Plateau()
-
 
     @property
     def pieces(self):
@@ -33,6 +31,6 @@ class Joueur():
     def couleur(self):
         return self.__couleur
 
-    @property
-    def plateau(self):
-        return self.__plateau
+    @couleur.setter
+    def couleur(self, value):
+        self.__couleur = value
