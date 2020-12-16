@@ -1,17 +1,11 @@
-# Il s'agit de la class plateau qui stocke le plateau au fur et à mesure de la partie.
-# C'est également celle-ci qui va vérifier après chaque les conditions de victoire et annoncer le vainqueur
-# s'il y en a un.
-#
-#  Francois Charlier
+class Plateau:
 
-class Plateau():
-
-# Definition du plateau du jeu
+    # Definition du plateau du jeu
     def __init__(self):
-        self.__plateau = [["A1","A2","A3","A4"],
-                          ["B1","B2","B3","B4"],
-                          ["C1","C2","C3","C4"],
-                          ["D1","D2","D3","D4"]]
+        self.__plateau = [["A1", "A2", "A3", "A4"],
+                          ["B1", "B2", "B3", "B4"],
+                          ["C1", "C2", "C3", "C4"],
+                          ["D1", "D2", "D3", "D4"]]
 
     @property
     def plateau(self):
@@ -21,16 +15,17 @@ class Plateau():
     def plateau(self, value):
         self.__plateau = value
 
-# Permet de tester si il y a une victoire sur une ligne.
-
-    def testLigne(self, plateau_param):
+    # Permet de tester si il y a une victoire sur une ligne.
+    @staticmethod
+    def test_ligne(plateau_param):
         victoire = False
         for ligne in plateau_param:
-            if (len(ligne[0]) > 2 and len(ligne[1]) > 2 and len(ligne[2]) > 2 and len(ligne[3]) > 2) and (len(set(ligne)) == len(ligne)):
+            if (len(ligne[0]) > 2 and len(ligne[1]) > 2 and len(ligne[2]) > 2 and len(ligne[3]) > 2) and (
+                    len(set(ligne)) == len(ligne)):
                 victoire = True
         return victoire
 
-# Permet de convertir les colonnes en lignes.
+    # Permet de convertir les colonnes en lignes.
     def colonneVersLigne(self):
         new_plateau_colonne = [[], [], [], []]
         for i in self.__plateau:
@@ -41,7 +36,7 @@ class Plateau():
 
         return new_plateau_colonne
 
-# Permet de convertir les zones en lignes.
+    # Permet de convertir les zones en lignes.
     def zoneVersLigne(self):
         new_plateau_zone = [[], [], [], []]
         demi_plateau1 = [self.__plateau[0], self.__plateau[1]]
@@ -59,9 +54,10 @@ class Plateau():
             new_plateau_zone[3].append(i[3])
         return new_plateau_zone
 
-# Test si il y a une victoire
+    # Test si il y a une victoire
     def testVictoire(self, joueur):
-        if self.testLigne(self.__plateau) or self.testLigne(self.colonneVersLigne()) or self.testLigne(self.zoneVersLigne()):
+        if self.test_ligne(self.__plateau) or self.test_ligne(self.colonneVersLigne()) or self.test_ligne(
+                self.zoneVersLigne()):
             print("Victoire, GG à " + joueur)
             return True
 

@@ -1,23 +1,14 @@
-#
-# Il s'agit de la class Joueur qui permet de stocker les pièces du joueur
-#
-# Maxime Lits
-
-from plateau.plateau import Plateau
-
-class Joueur():
+class Joueur:
 
     def __init__(self, pseudo):
-
         self.__couleur = ""
 
-        self.__pieces = {"carre":2,
-                          "rond":2,
-                      "triangle":2,
-                         "croix":2}
+        self.__pieces = {"carre": 2,
+                         "rond": 2,
+                         "triangle": 2,
+                         "croix": 2}
 
         self.__pseudo = pseudo
-
 
     @property
     def pieces(self):
