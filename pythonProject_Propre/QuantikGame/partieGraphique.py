@@ -31,6 +31,16 @@ class MenuRegles(Screen):
 class MenuJouer(Screen):
 
     def verrouiller_plateau(self, param):
+        """Fonction qui permet verrouiller le plateau de la partie graphique en mettant toutes les cases en disabled
+
+            PRE : param === bool
+            POST : -
+            RAISES : TypeError si type(param) != bool
+
+        """
+        if type(param) != bool:
+            raise TypeError
+
         for ligne in acces_plateau.plateau:
             for case in ligne:
                 if len(case) == 2:
@@ -39,6 +49,14 @@ class MenuJouer(Screen):
                     self.ids[case].background_disabled_down = "QuantikGame/imgs/jouer/cell.png"
 
     def retour_menu(self):
+        """Fonction qui permet de réinitialiser le plateau, le déverrouille, enlever le message de victoire,
+        réinitialiser les pièces des joueurs et de remettre le nom des pièces dans le sélectionneur.
+
+            PRE : -
+            POST : -
+            RAISES : -
+
+        """
         acces_plateau.plateau = [["A1", "A2", "A3", "A4"],
                                  ["B1", "B2", "B3", "B4"],
                                  ["C1", "C2", "C3", "C4"],
@@ -58,6 +76,14 @@ class MenuJouer(Screen):
                                 "croix": 2}
 
     def commencer_partie(self):
+        """Fonction qui permet de réinitialiser le nombre de coup, décider qui commence et attrivuer les couleurs aux
+        joueurs.
+
+            PRE : -
+            POST : -
+            RAISES : -
+
+        """
         global nb_coups
         nb_coups = 0
         nb_random = int(random.uniform(0, 2))
@@ -71,6 +97,16 @@ class MenuJouer(Screen):
             acces_joueur1.couleur = "bleu"
 
     def mettre_piece(self, id):
+        """Fonction qui permet de pièce sur le plateau de l'interface kivy et vérifier si cela produit une victoire
+
+            PRE : id === str et len(id) == 2
+            POST : -
+            RAISES : TypeError si type(id) != str ou len(id) != 2
+
+        """
+        if type(id) != str or len(id) != 2:
+            raise TypeError
+
         global nb_coups
         self.joueurQuiAJoue = ""
 
@@ -235,6 +271,13 @@ class MenuJouer(Screen):
                 MenuHistorique().ajouter_donnees(acces_joueur1.pseudo, acces_joueur2.pseudo, str(0), str(nb_coups))
 
     def get_nb_pieces(self):
+        """Fonction qui permet de savoir qui joue et de lui enlever la pièce jouée.
+
+            PRE : -
+            POST : -
+            RAISES : -
+
+        """
         piece = self.ids["spinnerPieces"].text
         self.joueurQuiAJoue = ""
 
@@ -260,6 +303,16 @@ class MenuJouer(Screen):
             self.ids["nbPieces"].text = "Nombre : " + str(self.joueurQuiAJoue.pieces["croix"])
 
     def mettre_piece_dans_plateau(self, piece, id):
+        """Fonction qui permet de mettre une pièce dans la variable acces_plateau.plateau
+
+            PRE : piece === str, id === str et len(id) == 2
+            POST : -
+            RAISES : TypeError si type(piece) != str ou type(id) != str ou len(id) != 2
+
+        """
+        if type(piece) != str or type(id) != str or len(id) != 2:
+            raise TypeError
+
         for ligne in acces_plateau.plateau:
             if id in ligne:
                 position = ligne.index(id)
@@ -269,9 +322,20 @@ class MenuJouer(Screen):
 class MenuHistorique(Screen):
 
     def creer_select(self):
+
         self.ids["joueur_selectionne"].values = acces_joueur1.pseudo, acces_joueur2.pseudo
 
     def get_winrate(self, array_param):
+        """Fonction qui permet de calculer le winrate d'un joueur en fonction des parties de son historiques.
+
+            PRE : array_param === list
+            POST : Renvoie le winrate en pourcentage
+            RAISES : TypeError si type(array_param) != list
+
+        """
+        if type(array_param) != list:
+            raise TypeError
+
         self.joueur = self.ids["joueur_selectionne"].text
         nb_parties = len(array_param)
         nb_victoires = 0
@@ -282,10 +346,26 @@ class MenuHistorique(Screen):
         return round((nb_victoires / nb_parties) * 100, 2)
 
     def convertir_date(self, str_date):
+        """Fonction qui permet de changer le format d'une date.
+
+            PRE : str_date === str
+            POST : Renvoie la date après modification
+            RAISES : TypeError si type(str_date) != list
+
+        """
+        if type(str_date) != list:
+            raise TypeError
         date = str_date.split("-")
         return str(date[2] + "-" + date[1] + "-" + date[0])
 
     def get_historique(self):
+        """Fonction qui permet d'écrire l'historique dans l'interface graphique à partir de la base de données.
+
+            PRE : -
+            POST : -
+            RAISES : -
+
+        """
         self.remove_historique()
         self.joueur = self.ids["joueur_selectionne"].text
         conn = sqlite3.connect("QuantikGame/historique.db")
@@ -326,16 +406,41 @@ class MenuHistorique(Screen):
             layout.add_widget(label)
 
     def remove_historique(self):
+        """Fonction qui permet d'enlever toutes les données qui se trouvent dans la page "historique" de l'interface
+        graphique.
+
+            PRE : -
+            POST : -
+            RAISES : -
+
+        """
         layout = self.ids["historique"]
         layout.clear_widgets()
         layout = self.ids["winrate"]
         layout.clear_widgets()
 
     def fermer_historique(self):
+        """Fonction qui permet d'appeller la fonction remove_historique et de changer le text du sélectionneur de la
+        page historique.
+
+            PRE : -
+            POST : -
+            RAISES : -
+
+        """
         self.remove_historique()
         self.joueur = self.ids["joueur_selectionne"].text = "Joueurs"
 
     def ajouter_donnees(self, joueur1, joueur2, gagnant, coup):
+        """Fonction qui permet d'ajouter des données dans la base de données.
+
+            PRE : joueur1 === str, joueur2 === str, gagnant === int, coup === int
+            POST : -
+            RAISES : TypeError si type(str_date) != list
+
+        """
+        if type(joueur1) != str or type(joueur2) != str or type(gagnant) != int or type(coup) != int:
+            raise TypeError
         conn = sqlite3.connect("QuantikGame/historique.db")
         cli = conn.cursor()
         dateYear = date.today().strftime('%Y')
