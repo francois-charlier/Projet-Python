@@ -17,8 +17,17 @@ class PartieConsole:
         self.__Joueur2 = ""
         self.__plateau = Plateau()
 
-    # Déroulement d'un tour, elle prend en paramètre le nom du joueur ainsi que les pièces dont il dispose.
     def jouer_tour(self, joueur, pieces_joueur):
+        """Déroulement d'un tour, elle prend en paramètre le nom du joueur ainsi que les pièces dont il dispose.
+
+            PRE : joueur == string qui correspond au pseudo du joueur et pieces_joueur correspond au dictionnaire contenant les pièces du joueur
+            POST : -
+            RAISES : TypeError si type(joueur) != str ou type(pieces_joueur) != dict
+
+        """
+        if type(joueur) != str or type(pieces_joueur) != dict:
+            raise TypeError
+
         print("Au tour de " + joueur)
         print('Vous avez {} "carre", {} "rond", {} "triangle", {} "croix" '.format(pieces_joueur["carre"],
                                                                                    pieces_joueur["rond"],
@@ -61,9 +70,6 @@ class PartieConsole:
             print("Voici le plateau : \n{}\n{}\n{}\n{}\n".format(self.__plateau.plateau[0], self.__plateau.plateau[1],
                                                                  self.__plateau.plateau[2], self.__plateau.plateau[3]))
 
-    # Déroulement d'un partie complete, elle lance les tours de jeu un par un pour que les joueurs jouent chacun à
-    # leur tour
-
     def deroulement_partie(self):
         global nb_coups
         print("Voici le plateau : \n{}\n{}\n{}\n{}\n".format(self.__plateau.plateau[0], self.__plateau.plateau[1],
@@ -94,6 +100,7 @@ class PartieConsole:
                     break
 
     def demarer_programme_console(self):
+
         joueur1 = input("Veuillez entrer le pseudo du premier joueur :")
         joueur2 = input("Veuillez entrer le pseudo du deuxième joueur :")
         self.__Joueur1 = Joueur(joueur1)
