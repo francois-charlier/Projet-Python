@@ -325,7 +325,7 @@ class MenuHistorique(Screen):
 
         self.ids["joueur_selectionne"].values = acces_joueur1.pseudo, acces_joueur2.pseudo
 
-    def get_winrate(self, array_param):
+    def get_winrate(self, array_param, pseudo):
         """Fonction qui permet de calculer le winrate d'un joueur en fonction des parties de son historiques.
 
             PRE : array_param === list
@@ -336,12 +336,11 @@ class MenuHistorique(Screen):
         if type(array_param) != list:
             raise TypeError
 
-        self.joueur = self.ids["joueur_selectionne"].text
         nb_parties = len(array_param)
         nb_victoires = 0
         for partie in array_param:
-            if (partie[0] == self.joueur and partie[2] == 1) or (
-                    partie[1] == self.joueur and partie[2] == 2):
+            if (partie[0] == pseudo and partie[2] == 1) or (
+                    partie[1] == pseudo and partie[2] == 2):
                 nb_victoires += 1
         return round((nb_victoires / nb_parties) * 100, 2)
 
@@ -353,7 +352,7 @@ class MenuHistorique(Screen):
             RAISES : TypeError si type(str_date) != list
 
         """
-        if type(str_date) != list:
+        if type(str_date) != str:
             raise TypeError
         date = str_date.split("-")
         return str(date[2] + "-" + date[1] + "-" + date[0])
@@ -401,7 +400,7 @@ class MenuHistorique(Screen):
                 layout.add_widget(label)
         if len(parties_list) != 0:
             layout = self.ids["winrate"]
-            label = Label(text='[color=d6ab32]Winrate : ' + str(self.get_winrate(parties_list)) + ' %[/color]',
+            label = Label(text='[color=d6ab32]Winrate : ' + str(self.get_winrate(parties_list, self.joueur)) + ' %[/color]',
                           markup=True, font_size=30, size_hint=(0.3, 0.08))
             layout.add_widget(label)
 
