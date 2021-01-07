@@ -92,6 +92,35 @@ class TestQuantikGame(unittest.TestCase):
     def test_instance_partie_console(self):
         partie_console = PartieConsole()
         self.assertIsInstance(partie_console, PartieConsole)
+    def test_testEgualite(self):
+        """"Test si toute les cases ne sont pas égales à deux de longueur"""
+        plateau = Plateau()
+        plateau.plateau = [["Carre", "Carre", "Rond", "Rond"],
+                           ["Carre", "Carre", "Rond", "Rond"],
+                           ["Croix", "Croix", "Triangle", "Triangle"],
+                           ["Croix", "Croix", "Triangle", "Triangle"]]
+        self.assertEqual(plateau.testEgualite(), True)
+
+        plateau.plateau = [["A1", "A2", "B1", "B2"],
+                           ["A3", "A4", "B3", "B4"],
+                           ["C1", "C2", "D1", "D2"],
+                           ["C3", "C4", "D3", "D4"]]
+        self.assertEqual(plateau.testEgualite(), False)
+    
+    def test_convertir_date(self):
+        historique = MenuHistorique()
+        valeur_param = "2020-12-02"
+        reponse = "02-12-2020"
+        self.assertEqual(historique.convertir_date(valeur_param), reponse)
+
+    def test_instance_menu_jouer(self):
+        menu_jouer = MenuJouer()
+        self.assertIsInstance(menu_jouer, MenuJouer)
+
+    def test_instance_menu_historique(self):
+        menu_historique = MenuHistorique()
+        self.assertIsInstance(menu_historique, MenuHistorique)
+
 
 if __name__ == '__main__':
     unittest.main()
