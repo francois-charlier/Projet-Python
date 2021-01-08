@@ -5,3 +5,4 @@ if __name__ == '__main__':
     PartieConsole().lancement_application()
     print("hello")
     print("hello matthew")
+    print("Hello Maxime")
