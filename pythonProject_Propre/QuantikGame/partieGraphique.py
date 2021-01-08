@@ -438,7 +438,7 @@ class MenuHistorique(Screen):
             RAISES : TypeError si type(str_date) != list
 
         """
-        if type(joueur1) != str or type(joueur2) != str or type(gagnant) != int or type(coup) != int:
+        if type(joueur1) != str or type(joueur2) != str or type(gagnant) != str or type(coup) != str:
             raise TypeError
         conn = sqlite3.connect("QuantikGame/historique.db")
         cli = conn.cursor()
