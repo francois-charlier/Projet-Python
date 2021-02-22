@@ -4,12 +4,10 @@ from joueur.joueur import Joueur
 from QuantikGame.partieGraphique import MenuHistorique
 from QuantikGame.partieGraphique import MenuJouer
 from partie.partieConsole import PartieConsole
+from QuantikGame.partieGraphique import PartieGraphique
 
 class TestQuantikGame(unittest.TestCase):
 
-    def test_instance_plateau(self):
-        plateau = Plateau()
-        self.assertIsInstance(plateau, Plateau)
 
     def test_test_ligne(self):
         """vérification que la fonction test_ligne return bien True quand une ligne est gagnante"""
@@ -80,18 +78,12 @@ class TestQuantikGame(unittest.TestCase):
                            ["C3", "C4", "D3", "D4"]]
         self.assertEqual(plateau.testVictoire("Pseudo"), True)
 
-    def test_instance_joueur(self):
-        joueur = Joueur("Pseudo")
-        self.assertIsInstance(joueur, Joueur)
-
     def test_get_winrate(self):
         historique = MenuHistorique()
         valeur_param = [["Zaboudi", "Spearaw", 1, 12, "2020-12-02"], ["Zaboudi", "Spearaw", 2, 4, "2020-12-13"]]
         self.assertEqual(historique.get_winrate(valeur_param, "Zaboudi"), 50.00)
 
-    def test_instance_partie_console(self):
-        partie_console = PartieConsole()
-        self.assertIsInstance(partie_console, PartieConsole)
+
     def test_testEgualite(self):
         """"Test si toute les cases ne sont pas égales à deux de longueur"""
         plateau = Plateau()
@@ -113,14 +105,26 @@ class TestQuantikGame(unittest.TestCase):
         reponse = "02-12-2020"
         self.assertEqual(historique.convertir_date(valeur_param), reponse)
 
-    def test_instance_menu_jouer(self):
-        menu_jouer = MenuJouer()
-        self.assertIsInstance(menu_jouer, MenuJouer)
+    def test_constructor_plateau(self):
+        menu_plateau = Plateau()
+        self.assertEqual(menu_plateau.plateau, [["A1", "A2", "A3", "A4"],["B1", "B2", "B3", "B4"],["C1", "C2", "C3", "C4"],["D1", "D2", "D3", "D4"]])
 
-    def test_instance_menu_historique(self):
-        menu_historique = MenuHistorique()
-        self.assertIsInstance(menu_historique, MenuHistorique)
+    def test_constructor_partie_console(self):
+        partie_console = PartieConsole();
+        self.assertEqual(type(partie_console.random), int);
+        self.assertIsInstance(partie_console.plateau, Plateau);
 
+    def test_constructor_joueur(self):
+        joueur = Joueur("Test");
+        self.assertEqual(joueur.pieces, {"carre": 2,"rond": 2,"triangle": 2,"croix": 2});
+        self.assertEqual(joueur.pseudo, "Test");
+        self.assertEqual(type(joueur.couleur), str);
+
+    def test_constructor_partie_graphique(self):
+        partie_graphique = PartieGraphique("pseudo1", "pseudo2")
+        self.assertEqual(partie_graphique.joueur1, "pseudo1");
+        self.assertEqual(partie_graphique.joueur2, "pseudo2");
+        self.assertIsInstance(partie_graphique.plateau, Plateau);
 
 if __name__ == '__main__':
     unittest.main()

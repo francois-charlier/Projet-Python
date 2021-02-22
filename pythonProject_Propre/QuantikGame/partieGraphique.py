@@ -472,6 +472,18 @@ class PartieGraphique():
         self.__joueur2 = joueur2
         self.__plateau = Plateau()
 
+    @property
+    def joueur1(self):
+        return self.__joueur1
+
+    @property
+    def joueur2(self):
+        return self.__joueur2
+
+    @property
+    def plateau(self):
+        return self.__plateau
+
     def start(self):
         global nb_coups
         nb_coups = 0

@@ -30,11 +30,14 @@ class Plateau:
         if type(plateau_param) != list:
             raise TypeError
         else :
-            victoire = False
-            for ligne in plateau_param:
-                if (len(ligne[0]) > 2 and len(ligne[1]) > 2 and len(ligne[2]) > 2 and len(ligne[3]) > 2) and (
-                        len(set(ligne)) == len(ligne)):
-                    victoire = True
+            try:
+                victoire = False
+                for ligne in plateau_param:
+                    if (len(ligne[0]) > 2 and len(ligne[1]) > 2 and len(ligne[2]) > 2 and len(ligne[3]) > 2) and (
+                            len(set(ligne)) == len(ligne)):
+                        victoire = True
+            except TypeError:
+                print("Mauvais type")
             return victoire
 
 
@@ -49,12 +52,14 @@ class Plateau:
         new_plateau_colonne = [[], [], [], []]
         if type(new_plateau_colonne) != list:
             raise TypeError
-
-        for i in self.__plateau:
-            new_plateau_colonne[0].append(i[0])
-            new_plateau_colonne[1].append(i[1])
-            new_plateau_colonne[2].append(i[2])
-            new_plateau_colonne[3].append(i[3])
+        try:
+            for i in self.__plateau:
+                new_plateau_colonne[0].append(i[0])
+                new_plateau_colonne[1].append(i[1])
+                new_plateau_colonne[2].append(i[2])
+                new_plateau_colonne[3].append(i[3])
+        except TypeError:
+          print("Mauvais type")
         return new_plateau_colonne
 
     def zoneVersLigne(self):
@@ -70,17 +75,19 @@ class Plateau:
         demi_plateau2 = [self.__plateau[2], self.__plateau[3]]
         if type(new_plateau_zone) != list:
             raise TypeError
-
-        for i in demi_plateau1:
-            new_plateau_zone[0].append(i[0])
-            new_plateau_zone[0].append(i[1])
-            new_plateau_zone[1].append(i[2])
-            new_plateau_zone[1].append(i[3])
-        for i in demi_plateau2:
-            new_plateau_zone[2].append(i[0])
-            new_plateau_zone[2].append(i[1])
-            new_plateau_zone[3].append(i[2])
-            new_plateau_zone[3].append(i[3])
+        try:
+            for i in demi_plateau1:
+                new_plateau_zone[0].append(i[0])
+                new_plateau_zone[0].append(i[1])
+                new_plateau_zone[1].append(i[2])
+                new_plateau_zone[1].append(i[3])
+            for i in demi_plateau2:
+                new_plateau_zone[2].append(i[0])
+                new_plateau_zone[2].append(i[1])
+                new_plateau_zone[3].append(i[2])
+                new_plateau_zone[3].append(i[3])
+        except TypeError:
+            print("Mauvais Type")
         return new_plateau_zone
 
 

@@ -17,6 +17,14 @@ class PartieConsole:
         self.__Joueur2 = ""
         self.__plateau = Plateau()
 
+    @property
+    def random(self):
+        return self.__random
+
+    @property
+    def plateau(self):
+        return self.__plateau
+
     def jouer_tour(self, joueur, pieces_joueur):
         """Déroulement d'un tour, elle prend en paramètre le nom du joueur ainsi que les pièces dont il dispose.
 
