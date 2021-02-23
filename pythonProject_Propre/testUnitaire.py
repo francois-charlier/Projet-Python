@@ -110,21 +110,21 @@ class TestQuantikGame(unittest.TestCase):
         self.assertEqual(menu_plateau.plateau, [["A1", "A2", "A3", "A4"],["B1", "B2", "B3", "B4"],["C1", "C2", "C3", "C4"],["D1", "D2", "D3", "D4"]])
 
     def test_constructor_partie_console(self):
-        partie_console = PartieConsole();
-        self.assertEqual(type(partie_console.random), int);
-        self.assertIsInstance(partie_console.plateau, Plateau);
+        partie_console = PartieConsole()
+        self.assertEqual(type(partie_console.random), int)
+        self.assertIsInstance(partie_console.plateau, Plateau)
 
     def test_constructor_joueur(self):
-        joueur = Joueur("Test");
-        self.assertEqual(joueur.pieces, {"carre": 2,"rond": 2,"triangle": 2,"croix": 2});
-        self.assertEqual(joueur.pseudo, "Test");
-        self.assertEqual(type(joueur.couleur), str);
+        joueur = Joueur("Test")
+        self.assertEqual(joueur.pieces, {"carre": 2,"rond": 2,"triangle": 2,"croix": 2})
+        self.assertEqual(joueur.pseudo, "Test")
+        self.assertEqual(type(joueur.couleur), str)
 
     def test_constructor_partie_graphique(self):
         partie_graphique = PartieGraphique("pseudo1", "pseudo2")
-        self.assertEqual(partie_graphique.joueur1, "pseudo1");
-        self.assertEqual(partie_graphique.joueur2, "pseudo2");
-        self.assertIsInstance(partie_graphique.plateau, Plateau);
+        self.assertEqual(partie_graphique.joueur1, "pseudo1")
+        self.assertEqual(partie_graphique.joueur2, "pseudo2")
+        self.assertIsInstance(partie_graphique.plateau, Plateau)
 
 if __name__ == '__main__':
     unittest.main()
