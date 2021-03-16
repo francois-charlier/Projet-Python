@@ -29,7 +29,7 @@ class Plateau:
         """
         if type(plateau_param) != list:
             raise TypeError
-        else :
+        else:
             try:
                 victoire = False
                 for ligne in plateau_param:
@@ -45,12 +45,12 @@ class Plateau:
         """Permet de convertir les colonnes en lignes.
 
             PRE : -
-            POST : renvoie new_plateau_colonne qui est une modification de self.__plateau
+            POST : renvoie new_plateau_colonne qui est une modification de self.__plateau (transposer)
             RAISES : TypeError si Type(new_plateau_colonne) != list
 
         """
         new_plateau_colonne = [[], [], [], []]
-        if type(new_plateau_colonne) != list:
+        if type(self.__plateau) != list:
             raise TypeError
         try:
             for i in self.__plateau:
