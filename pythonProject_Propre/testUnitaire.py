@@ -63,12 +63,34 @@ class TestQuantikGame(unittest.TestCase):
                            ["C1", "C2", "C3", "C4"],
                            ["D1", "D2", "D3", "D4"]]
         self.assertEqual(plateau.testVictoire("Pseudo"), True)
+        plateau.plateau = [["A1", "A2", "A3", "A4"],
+                           ["B1", "B2", "B3", "B4"],
+                           ["Carre", "Rond", "Croix", "Triangle"],
+                           ["D1", "D2", "D3", "D4"]]
+        self.assertEqual(plateau.testVictoire("Pseudo"), True)
+        plateau.plateau = [["A1", "A2", "A3", "A4"],
+                           ["B1", "B2", "B3", "B4"],
+                           ["C1", "C2", "C3", "C4"],
+                           ["Carre", "Rond", "Croix", "Triangle"]]
+        self.assertEqual(plateau.testVictoire("Pseudo"), True)
 
         """"Test de victoire sur une colonne"""
         plateau.plateau = [["Carre", "A2", "B1", "B2"],
                            ["Rond", "A4", "B3", "B4"],
                            ["Triangle", "C2", "D1", "D2"],
                            ["Croix", "C4", "D3", "D4"]]
+        self.assertEqual(plateau.testVictoire("Pseudo"), True)
+
+        plateau.plateau = [["A1", "A2", "B1", "Rond"],
+                           ["A3", "A4", "B3", "Croix"],
+                           ["C1", "C2", "D1", "Carre"],
+                           ["C3", "C4", "D3", "Triangle"]]
+        self.assertEqual(plateau.testVictoire("Pseudo"), True)
+
+        plateau.plateau = [["A1", "A2", "Triangle", "B2"],
+                           ["A3", "A4", "Croix", "B4"],
+                           ["C1", "C2", "Rond", "D2"],
+                           ["C3", "C4", "Carre", "D4"]]
         self.assertEqual(plateau.testVictoire("Pseudo"), True)
 
         """"Test de victoire sur une zone"""
@@ -78,10 +100,31 @@ class TestQuantikGame(unittest.TestCase):
                            ["C3", "C4", "D3", "D4"]]
         self.assertEqual(plateau.testVictoire("Pseudo"), True)
 
+        plateau.plateau = [["A1", "A2", "B1", "B2"],
+                           ["A3", "A4", "B3", "B4"],
+                           ["C1", "C2", "Rond", "Carre"],
+                           ["C3", "C4", "Croix", "Triangle"]]
+        self.assertEqual(plateau.testVictoire("Pseudo"), True)
+
+        plateau.plateau = [["A1", "A2", "B1", "B2"],
+                           ["A3", "A4", "B3", "B4"],
+                           ["Carre", "Triangle", "D1", "D2"],
+                           ["Croix", "Rond", "D3", "D4"]]
+        self.assertEqual(plateau.testVictoire("Pseudo"), True)
+
+
     def test_get_winrate(self):
         historique = MenuHistorique()
-        valeur_param = [["Zaboudi", "Spearaw", 1, 12, "2020-12-02"], ["Zaboudi", "Spearaw", 2, 4, "2020-12-13"]]
-        self.assertEqual(historique.get_winrate(valeur_param, "Zaboudi"), 50.00)
+        valeur_param1 = [["Zaboudi", "Spearaw", 1, 12, "2020-12-02"], ["Zaboudi", "Spearaw", 2, 4, "2020-12-13"]]
+        valeur_param2 = [["Zaboudi", "Spearaw", 2, 12, "2020-12-02"], ["Zaboudi", "Spearaw", 2, 4, "2020-12-13"]]
+        valeur_param3 = [["Zaboudi", "Spearaw", 1, 12, "2020-12-02"], ["Zaboudi", "Spearaw", 2, 4, "2020-12-13"], ["Zaboudi", "Spearaw", 1, 8, "2020-12-02"]]
+
+        self.assertEqual(historique.get_winrate(valeur_param1, "Zaboudi"), 50.00)
+        self.assertEqual(historique.get_winrate(valeur_param1, "Spearaw"), 50.00)
+        self.assertEqual(historique.get_winrate(valeur_param2, "Zaboudi"), 0.00)
+        self.assertEqual(historique.get_winrate(valeur_param2, "Spearaw"), 100.00)
+        self.assertEqual(historique.get_winrate(valeur_param3, "Zaboudi"), 66.67)
+        self.assertEqual(historique.get_winrate(valeur_param3, "Spearaw"), 33.33)
 
 
     def test_testEgualite(self):
@@ -101,9 +144,12 @@ class TestQuantikGame(unittest.TestCase):
     
     def test_convertir_date(self):
         historique = MenuHistorique()
-        valeur_param = "2020-12-02"
-        reponse = "02-12-2020"
-        self.assertEqual(historique.convertir_date(valeur_param), reponse)
+        valeur_param = ["2020-12-02", "2019-11-05", "2010-02-12", "2000-10-26"]
+        reponse = ["02-12-2020", "05-11-2019", "12-02-2010", "26-10-2000"]
+        self.assertEqual(historique.convertir_date(valeur_param[0]), reponse[0])
+        self.assertEqual(historique.convertir_date(valeur_param[1]), reponse[1])
+        self.assertEqual(historique.convertir_date(valeur_param[2]), reponse[2])
+        self.assertEqual(historique.convertir_date(valeur_param[3]), reponse[3])
 
     def test_constructor_plateau(self):
         menu_plateau = Plateau()

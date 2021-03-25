@@ -19,17 +19,34 @@ class PartieConsole:
 
     @property
     def random(self):
+        """
+            PRE : -
+
+            POST : Renvois la valeur de l'attribut self.__random qui est un chiffre random entre 0 et 1
+
+        """
         return self.__random
 
     @property
     def plateau(self):
+        """
+            PRE : -
+
+            POST : Renvois la valeur de l'attribut self.__plateau qui est une instance de la class Plateau
+
+        """
         return self.__plateau
 
     def jouer_tour(self, joueur, pieces_joueur):
         """Déroulement d'un tour, elle prend en paramètre le nom du joueur ainsi que les pièces dont il dispose.
 
-            PRE : joueur == string qui correspond au pseudo du joueur et pieces_joueur correspond au dictionnaire contenant les pièces du joueur
-            POST : -
+            PRE : joueur est un string qui correspond au pseudo du joueur et pieces_joueur correspond au dictionnaire
+                  contenant les pièces du joueur.
+
+            POST : Après que le joueur aie joué via cette syntaxe "nom_de_la_piece, id_de_la_case", si la case n'est
+                   encore utilisée alors la pièce est placée et une décrémentation de 1 est effectuée sur le nombre de
+                   pièce de ce type que le joueur dispose.
+
             RAISES : TypeError si type(joueur) != str ou type(pieces_joueur) != dict
 
         """
@@ -79,6 +96,11 @@ class PartieConsole:
                                                                  self.__plateau.plateau[2], self.__plateau.plateau[3]))
 
     def deroulement_partie(self):
+        """
+        Cette fonction n'a pas de return cependant elle permet de faire une partie de jeu en console.
+        A chaque tour elle appelle la fonction testVictoire() afin de tester s'il y a une victoire.
+
+        """
         global nb_coups
         print("Voici le plateau : \n{}\n{}\n{}\n{}\n".format(self.__plateau.plateau[0], self.__plateau.plateau[1],
                                                              self.__plateau.plateau[2], self.__plateau.plateau[3]))
@@ -108,7 +130,16 @@ class PartieConsole:
                     break
 
     def demarer_programme_console(self):
+        """
+        Cette fonction permet d'initialiser le démarage d'une partie en console, notamment en demandant aux utilisateurs
+        leurs pseudos ainsi qu'en initialisant leurs pièces.
 
+        PRE : -
+
+        POST : On stock des instances de la class Joueur dans les attribus joueur1 et joueur2 qui correspondent aux deux
+               joueurs de la parties.
+               Dans cette instance il y a également les pièces de chaque joueurs.
+        """
         joueur1 = input("Veuillez entrer le pseudo du premier joueur :")
         joueur2 = input("Veuillez entrer le pseudo du deuxième joueur :")
         self.__Joueur1 = Joueur(joueur1)
@@ -117,6 +148,15 @@ class PartieConsole:
         self.deroulement_partie()
 
     def lancement_application(self):
+        """
+        C'est cette fonction qui lance l'application, ensuite l'utilisateur doit choisir si il joue en "console" ou
+        en partie "graphique".
+
+        PRE : -
+
+        POST : Lance soit une partie console, soit une partie graphique en fonction de ce que l'utilisateur à choisit.
+
+        """
         print("\n" * 25)
         while True:
             interface = input("Voulez jouer en console ou avec l'interface graphique ('console' ou 'graphique'):")

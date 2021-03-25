@@ -33,8 +33,9 @@ class MenuJouer(Screen):
     def verrouiller_plateau(self, param):
         """Fonction qui permet verrouiller le plateau de la partie graphique en mettant toutes les cases en disabled
 
-            PRE : param === bool
-            POST : -
+            PRE : le paramètre est un booléan qui permet oui ou non de verrouiller le plateau.
+            POST : Lors d'une victoire, le plateau est verrouiller afin que les joueurs ne puissent plus poser de pièces
+                   dessus.
             RAISES : TypeError si type(param) != bool
 
         """
@@ -53,8 +54,7 @@ class MenuJouer(Screen):
         réinitialiser les pièces des joueurs et de remettre le nom des pièces dans le sélectionneur.
 
             PRE : -
-            POST : -
-            RAISES : -
+            POST : Remet le plateau à sa valeur initial ainsi que les dictionnaires contenant les pièces des joueurs.
 
         """
         acces_plateau.plateau = [["A1", "A2", "A3", "A4"],
@@ -80,8 +80,7 @@ class MenuJouer(Screen):
         joueurs.
 
             PRE : -
-            POST : -
-            RAISES : -
+            POST : Attribue une couleur aléatoire à un joueur et initialise le nombre de coup à 0.
 
         """
         global nb_coups
@@ -99,8 +98,10 @@ class MenuJouer(Screen):
     def mettre_piece(self, id):
         """Fonction qui permet de pièce sur le plateau de l'interface kivy et vérifier si cela produit une victoire
 
-            PRE : id === str et len(id) == 2
-            POST : -
+            PRE : Le paramètre de la fonction est l'id de case ou le joueur désire mettre sa pièce.
+            POST : Place la pièce sur la case demandée en paramère si celle n'est pas déjà occupée et si le joueur
+                   dispose encore de ce type de pièce.
+                   Après chaque pièce posée, un test de victoire est effectué.
             RAISES : TypeError si type(id) != str ou len(id) != 2
 
         """
@@ -274,7 +275,7 @@ class MenuJouer(Screen):
         """Fonction qui permet de savoir qui joue et de lui enlever la pièce jouée.
 
             PRE : -
-            POST : -
+            POST : Verifie que le joueur possède bien la pièce qu'il désire posé, si c'est le cas décrémente
             RAISES : -
 
         """
@@ -303,10 +304,15 @@ class MenuJouer(Screen):
             self.ids["nbPieces"].text = "Nombre : " + str(self.joueurQuiAJoue.pieces["croix"])
 
     def mettre_piece_dans_plateau(self, piece, id):
-        """Fonction qui permet de mettre une pièce dans la variable acces_plateau.plateau
+        """
+            Fonction qui permet de mettre une pièce dans la variable acces_plateau.plateau
 
-            PRE : piece === str, id === str et len(id) == 2
-            POST : -
+            PRE : Cette fonction possède deux paramètres, le premier s'appel "piece" il correspond au nom de la pièce
+                  que le joueur souhaite placé et le second s'appel id et correspond à la case du plateau ou le joueur
+                  désire placé sa pièce.
+
+            POST : Met la pièce sur la bonne case dans le plateau.
+
             RAISES : TypeError si type(piece) != str ou type(id) != str ou len(id) != 2
 
         """
@@ -322,14 +328,22 @@ class MenuJouer(Screen):
 class MenuHistorique(Screen):
 
     def creer_select(self):
+        """
+            Fonction qui permet d'ajouter un sélect sur la page Historique de l'application.
 
+        """
         self.ids["joueur_selectionne"].values = acces_joueur1.pseudo, acces_joueur2.pseudo
 
     def get_winrate(self, array_param, pseudo):
-        """Fonction qui permet de calculer le winrate d'un joueur en fonction des parties de son historiques.
+        """
+            Fonction qui permet de calculer le winrate d'un joueur en fonction des parties de son historiques.
 
-            PRE : array_param === list
-            POST : Renvoie le winrate en pourcentage
+            PRE :  Le paramètre "array_param" est une liste qui contient tout les parties et le paramètre "pseudo" est
+                   le pseudo du joueur dont on désire le winrate.
+
+            POST : Renvoie le winrate en pourcentage sur base du nombre de partie gagnée par rapport au nombre de partie
+                   jouée.
+
             RAISES : TypeError si type(array_param) != list
 
         """
@@ -347,8 +361,10 @@ class MenuHistorique(Screen):
     def convertir_date(self, str_date):
         """Fonction qui permet de changer le format d'une date.
 
-            PRE : str_date === str
-            POST : Renvoie la date après modification
+            PRE : Le paramètre de la fonction est une chaine de caractère conetenant la date sous ce format : "2020-12-02"
+
+            POST : Renvoie la date après modification, cela donne "02-12-2020"
+
             RAISES : TypeError si type(str_date) != list
 
         """
@@ -361,16 +377,26 @@ class MenuHistorique(Screen):
         """Fonction qui permet d'écrire l'historique dans l'interface graphique à partir de la base de données.
 
             PRE : -
-            POST : -
+
+            POST : Récupération de l'historique du joueur sélectionner dans le select et affichage dynamique.
+
             RAISES : -
 
         """
         self.remove_historique()
         self.joueur = self.ids["joueur_selectionne"].text
-        conn = sqlite3.connect("QuantikGame/historique.db")
+        try:
+            conn = sqlite3.connect("QuantikGame/historique.db")
+        except sqlite3.Error as er:
+            print('Erreure : ' + (' '.join(er.args)))
+
         cli = conn.cursor()
-        cli.execute(
-            "SELECT Joueur1, Joueur2, Gagnant, NbCoup, DatePartie FROM Historique WHERE Joueur1 = '" + self.joueur + "' OR Joueur2 ='" + self.joueur + "'")
+        try:
+            cli.execute(
+                "SELECT Joueur1, Joueur2, Gagnant, NbCoup, DatePartie FROM Historique WHERE Joueur1 = '" + self.joueur + "' OR Joueur2 ='" + self.joueur + "'")
+        except sqlite3.Error as er:
+            print('Erreure : ' + (' '.join(er.args)))
+
         parties_list = cli.fetchall()
         layout = self.ids["historique"]
         for partie in parties_list:
@@ -409,7 +435,10 @@ class MenuHistorique(Screen):
         graphique.
 
             PRE : -
-            POST : -
+
+            POST : Clear tout ce qui se trouve dans la page historique dans les champs boxs portant les ids "historique"
+                   et "winrate".
+
             RAISES : -
 
         """
@@ -423,32 +452,42 @@ class MenuHistorique(Screen):
         page historique.
 
             PRE : -
-            POST : -
+            POST : Appel la fontion self.remove_historique() et met dans le select la valeur "Joueurs"
             RAISES : -
 
         """
         self.remove_historique()
-        self.joueur = self.ids["joueur_selectionne"].text = "Joueurs"
+        self.ids["joueur_selectionne"].text = "Joueurs"
 
     def ajouter_donnees(self, joueur1, joueur2, gagnant, coup):
         """Fonction qui permet d'ajouter des données dans la base de données.
 
-            PRE : joueur1 === str, joueur2 === str, gagnant === int, coup === int
-            POST : -
+            PRE : Cette fonction possède quatre paramètre, "joueur1" qui est le pseudo du premier joueur, "joueur2" qui
+                  est le pseudo du second joueur, "gagnant" qui est le numéro du vainqueur et "coup" qui est le nombre
+                  de coup de la partie.
+
+            POST : Insert les données dans la base de donnée.
+
             RAISES : TypeError si type(str_date) != list
 
         """
-        if type(joueur1) != str or type(joueur2) != str or type(gagnant) != str or type(coup) != str:
-            raise TypeError
-        conn = sqlite3.connect("QuantikGame/historique.db")
+        try:
+            conn = sqlite3.connect("QuantikGame/historique.db")
+        except sqlite3.Error as er:
+            print('Erreure : ' + (' '.join(er.args)))
+
         cli = conn.cursor()
         dateYear = date.today().strftime('%Y')
         dateMonth = date.today().strftime('%m')
         dateDay = date.today().strftime('%d')
 
         dateGame = str(dateYear + "-" + dateMonth + "-" + dateDay)
-        cli.execute(
-            "INSERT INTO Historique(Joueur1, Joueur2, Gagnant, NbCoup, DatePartie) VALUES ('" + joueur1 + "','" + joueur2 + "'," + gagnant + "," + coup + ",'" + dateGame + "')")
+        try:
+            cli.execute(
+                "INSERT INTO Historique(Joueur1, Joueur2, Gagnant, NbCoup, DatePartie) VALUES ('" + joueur1 + "','" + joueur2 + "'," + gagnant + "," + coup + ",'" + dateGame + "')")
+        except sqlite3.Error as er:
+            print('Erreure : ' + (' '.join(er.args)))
+
         conn.commit()
 
 
@@ -474,17 +513,46 @@ class PartieGraphique():
 
     @property
     def joueur1(self):
+        """
+            PRE : -
+
+            POST : Renvois la valeur de l'attribut self.__joueur1 qui est une chaine de caractère contenant le pseudo
+                   du joueur1
+
+        """
         return self.__joueur1
 
     @property
     def joueur2(self):
+        """
+            PRE : -
+
+            POST : Renvois la valeur de l'attribut self.__joueur2 qui est une chaine de caractère contenant le pseudo
+                   du joueur2
+
+        """
         return self.__joueur2
 
     @property
     def plateau(self):
+        """
+            PRE : -
+
+            POST : Renvois la valeur de l'attribut self.__plateau qui est une liste de listes.
+
+        """
         return self.__plateau
 
     def start(self):
+        """
+            Cette fonction permet de démarer la partie graphique.
+
+            PRE : -
+
+            POST : Met le nombre de coup à sa valeur initial 0, et mets en variable global les instances de la class
+                   Joueur ainsi que de la class Plateau.
+
+        """
         global nb_coups
         nb_coups = 0
         global acces_joueur1
