@@ -34,8 +34,10 @@ class MenuJouer(Screen):
         """Fonction qui permet verrouiller le plateau de la partie graphique en mettant toutes les cases en disabled
 
             PRE : le paramètre est un booléan qui permet oui ou non de verrouiller le plateau.
+
             POST : Lors d'une victoire, le plateau est verrouiller afin que les joueurs ne puissent plus poser de pièces
                    dessus.
+
             RAISES : TypeError si type(param) != bool
 
         """
@@ -50,10 +52,12 @@ class MenuJouer(Screen):
                     self.ids[case].background_disabled_down = "QuantikGame/imgs/jouer/cell.png"
 
     def retour_menu(self):
-        """Fonction qui permet de réinitialiser le plateau, le déverrouille, enlever le message de victoire,
-        réinitialiser les pièces des joueurs et de remettre le nom des pièces dans le sélectionneur.
+        """
+            Fonction qui permet de réinitialiser le plateau, le déverrouille, enlever le message de victoire,
+            réinitialiser les pièces des joueurs et de remettre le nom des pièces dans le sélectionneur.
 
             PRE : -
+
             POST : Remet le plateau à sa valeur initial ainsi que les dictionnaires contenant les pièces des joueurs.
 
         """
@@ -76,8 +80,9 @@ class MenuJouer(Screen):
                                 "croix": 2}
 
     def commencer_partie(self):
-        """Fonction qui permet de réinitialiser le nombre de coup, décider qui commence et attrivuer les couleurs aux
-        joueurs.
+        """
+            Fonction qui permet de réinitialiser le nombre de coup, décider qui commence et attrivuer les couleurs aux
+            joueurs.
 
             PRE : -
             POST : Attribue une couleur aléatoire à un joueur et initialise le nombre de coup à 0.
@@ -96,12 +101,15 @@ class MenuJouer(Screen):
             acces_joueur1.couleur = "bleu"
 
     def mettre_piece(self, id):
-        """Fonction qui permet de pièce sur le plateau de l'interface kivy et vérifier si cela produit une victoire
+        """
+            Fonction qui permet de pièce sur le plateau de l'interface kivy et vérifier si cela produit une victoire
 
             PRE : Le paramètre de la fonction est l'id de case ou le joueur désire mettre sa pièce.
+
             POST : Place la pièce sur la case demandée en paramère si celle n'est pas déjà occupée et si le joueur
                    dispose encore de ce type de pièce.
                    Après chaque pièce posée, un test de victoire est effectué.
+
             RAISES : TypeError si type(id) != str ou len(id) != 2
 
         """
@@ -275,7 +283,9 @@ class MenuJouer(Screen):
         """Fonction qui permet de savoir qui joue et de lui enlever la pièce jouée.
 
             PRE : -
+
             POST : Verifie que le joueur possède bien la pièce qu'il désire posé, si c'est le cas décrémente
+
             RAISES : -
 
         """

@@ -158,9 +158,11 @@ class Plateau:
             return True
 
     def testEgualite(self):
-        """Permet de tester si il y a une victoire sur une ligne.
+        """
+            Permet de tester si il y a une victoire sur une ligne.
 
             PRE : -
+
             POST : Cette fonction va renvoyer True si toutes les longueurs des cases du plateau est supérieur à 2.
                    Cela  signifie que le plateau est plein et qu'il n'y a eu aucune victoire.
 
